@@ -15,8 +15,10 @@ import javax.swing.table.TableColumn;
  * @author David
  */
 public class main extends javax.swing.JFrame {
-    
+
     BBDD_Manager manager = new BBDD_Manager();
+    String tableState = "empty";
+    int platforms =0;
 
     /**
      * Creates new form main
@@ -24,6 +26,7 @@ public class main extends javax.swing.JFrame {
     public main() {
         initComponents();
         components(false);
+
     }
 
     /**
@@ -328,10 +331,13 @@ public class main extends javax.swing.JFrame {
 
     private void restore_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restore_buttonActionPerformed
         manager.createDataBase();
+        updateTable(tableState);
         update();
+        System.out.println(tableState);
     }//GEN-LAST:event_restore_buttonActionPerformed
 
     private void allMovies_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allMovies_buttonActionPerformed
+        tableState = "movies";
         DefaultTableModel model = (DefaultTableModel) mainTable.getModel();
         model.getDataVector().removeAllElements();
         model.setColumnCount(4);
@@ -342,6 +348,7 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_allMovies_buttonActionPerformed
 
     private void allSeries_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allSeries_buttonActionPerformed
+        tableState = "series";
         DefaultTableModel model = (DefaultTableModel) mainTable.getModel();
         model.getDataVector().removeAllElements();
         model.setColumnCount(5);
@@ -352,6 +359,8 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_allSeries_buttonActionPerformed
 
     private void seriesFromPlatform_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seriesFromPlatform_buttonActionPerformed
+        tableState = "platforms";
+        platforms=platform_comboBox.getSelectedIndex();
         DefaultTableModel model = (DefaultTableModel) mainTable.getModel();
         model.getDataVector().removeAllElements();
         model.setColumnCount(5);
@@ -363,7 +372,8 @@ public class main extends javax.swing.JFrame {
 
     private void deleteSeriesMovies_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSeriesMovies_buttonActionPerformed
         manager.deleteSerieOrMovies(seriesandMovies_comboBox.getSelectedItem().toString());
-        update();
+        updateTable(tableState);
+        update();       
     }//GEN-LAST:event_deleteSeriesMovies_buttonActionPerformed
 
     private void addSerie_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSerie_buttonActionPerformed
@@ -388,7 +398,9 @@ public class main extends javax.swing.JFrame {
             director_addMovie.setText("");
             platforms_addMovie.setSelectedIndex(0);
             date_addMovie.setText("");
+            updateTable(tableState);
             update();
+            System.out.println(tableState);
         } else {
             JOptionPane.showMessageDialog(null, "No se pudo añadir la pelicula complete todo los campos o revise la fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -401,8 +413,9 @@ public class main extends javax.swing.JFrame {
             director_addSeries.setText("");
             platforms_addSeries.setSelectedIndex(0);
             date_addSeries.setText("");
-             date2_addSeries.setText("");
+            date2_addSeries.setText("");
             update();
+            updateTable(tableState);
         } else {
             JOptionPane.showMessageDialog(null, "No se pudo añadir la pelicula complete todo los campos o revise la fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -416,6 +429,7 @@ public class main extends javax.swing.JFrame {
     private void accept_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accept_updateActionPerformed
         manager.updateSerieOrMovie(mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString(), nuevoNombre_update.getText(), nuevoDirector_update.getText(), platformComboBox_update.getSelectedIndex());
         update_Frame.setVisible(false);
+        updateTable(tableState);
         nuevoNombre_update.setText("");
         nuevoDirector_update.setText("");
         platformComboBox_update.setSelectedIndex(0);
@@ -427,13 +441,14 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_addPlatform_buttonActionPerformed
 
     private void accept_addPlatformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accept_addPlatformActionPerformed
-        if(manager.addPlatform(name_addPlatform.getText(), Double.parseDouble(price_addPlatform.getText()), date_addPlatform.getText())){
+        if (manager.addPlatform(name_addPlatform.getText(), Double.parseDouble(price_addPlatform.getText()), date_addPlatform.getText())) {
             name_addPlatform.setText("");
             price_addPlatform.setText("");
             date_addPlatform.setText("");
+            updateTable(tableState);
             update();
             addPlatform_Frame.setVisible(false);
-        }else {
+        } else {
             JOptionPane.showMessageDialog(null, "No se pudo añadir la pelicula complete todo los campos o revise la fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_accept_addPlatformActionPerformed
@@ -469,20 +484,51 @@ public class main extends javax.swing.JFrame {
             for (int i = platform_comboBox.getItemCount() - 1; i >= 0; i--) {
                 platform_comboBox.removeItemAt(i);
                 platforms_addMovie.removeItemAt(i);
-                platforms_addSeries.removeItem(i);
-                platformComboBox_update.removeItem(i);
-                
+                platforms_addSeries.removeItemAt(i);
+                platformComboBox_update.removeItemAt(i);
+
             }
             for (int i = seriesandMovies_comboBox.getItemCount() - 1; i >= 0; i--) {
                 seriesandMovies_comboBox.removeItemAt(i);
             }
         }
-        
+
     }
 
     public void update() {
         components(false);
         components(true);
+    }
+
+    public void updateTable(String state) {
+        if (state.equals("platforms")) {
+            System.out.println(state);
+            DefaultTableModel model = (DefaultTableModel) mainTable.getModel();
+            model.getDataVector().removeAllElements();
+            model.setColumnCount(5);
+            model.setColumnIdentifiers(new Object[]{"Nombre", "Director", "Plataforma", "Fecha Salida", "Fecha Finalizacion"});
+            for (int i = 0; i < manager.getSeriesandMovies(String.valueOf(platform_comboBox.getSelectedIndex())).length; i++) {
+                model.addRow(new Object[]{manager.getSeriesandMovies(String.valueOf(platforms))[i][0], manager.getSeriesandMovies(String.valueOf(platform_comboBox.getSelectedIndex()))[i][1], manager.getSeriesandMovies(String.valueOf(platform_comboBox.getSelectedIndex()))[i][2], manager.getSeriesandMovies(String.valueOf(platform_comboBox.getSelectedIndex()))[i][3], manager.getSeriesandMovies(String.valueOf(platform_comboBox.getSelectedIndex()))[i][4]});
+            }
+        } else if (state.equals("series")) {
+            System.out.println(state);
+            DefaultTableModel model = (DefaultTableModel) mainTable.getModel();
+            model.getDataVector().removeAllElements();
+            model.setColumnCount(5);
+            model.setColumnIdentifiers(new Object[]{"Nombre", "Director", "Plataforma", "Fecha Salida", "Fecha Finalizacion"});
+            for (int i = 0; i < manager.getSeries().length; i++) {
+                model.addRow(new Object[]{manager.getSeries()[i][0], manager.getSeries()[i][1], manager.getSeries()[i][2], manager.getSeries()[i][3], manager.getSeries()[i][4]});
+            }
+        } else if (state.equals("movies")) {
+            System.out.println(state);
+            DefaultTableModel model = (DefaultTableModel) mainTable.getModel();
+            model.getDataVector().removeAllElements();
+            model.setColumnCount(4);
+            model.setColumnIdentifiers(new Object[]{"Nombre", "Director", "Plataforma", "Fecha Salida"});
+            for (int i = 0; i < manager.getFilms().length; i++) {
+                model.addRow(new Object[]{manager.getFilms()[i][0], manager.getFilms()[i][1], manager.getFilms()[i][2], manager.getFilms()[i][3]});
+            }
+        }
     }
 
     /**
