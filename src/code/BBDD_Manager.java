@@ -87,10 +87,7 @@ public class BBDD_Manager {
                 "ALTER TABLE series ADD FOREIGN KEY (plataforma) REFERENCES plataformas(id);",
                 "INSERT INTO PLATAFORMAS(nombre, precio, fechasalida) VALUES ('Netflix', 10.95, '1997-08-29'), ('Disney+', 7.95, '2019-12-12'), ('Amazon Prime video', 9.95, '2006-09-07');",
                 "INSERT INTO  SERIES( nombre, director, plataforma,  fechasalida, fechafinalizacion ) VALUES  ( 'Gambito de Dama', 'Scott Frank',  1, '2020-10-23', NULL ),  ( 'El mandaloriano', 'Jon Favreau',  2, '2019-12-12', NULL ), ( 'Breaking Bad', ' Vince Gilligan', 1, '2008-01-20', '2013-09-29' ), ( 'Rick y Morty', 'Pete Michels', 1, '2013-09-2', NULL ), ( 'Peaky Blinders', 'Steven Knight',  1, '2013-09-12', NULL ), ( 'Hijos de la Anarquia', 'Kurt Sutter', 1, '2008-09-03', '2014-12-09' ), ( 'The Boys', 'Eric Kripke', 3, '2019-07-26',  NULL ),( 'The witcher', 'Lauren Schmidt Hissrich',  1, '2018-7-17', NULL ),( 'WandaVision', 'Jac Schaeffer', 2, '2020-1-22', NULL );",
-                "INSERT INTO PELICULAS(nombre, director, plataforma, fechasalida) VALUES  ( 'Django desencadenado', 'Quentin Tarantino', 1, '2012-01-25' ), ( 'Reservoir dogs', 'Quentin Tarantino', 3, '1992-01-23' ),( 'El lobo de Wall Street', '	Martin Scorsese', 1, '2013-02-22' ),( 'Puñales por la espalda', 'Rian Johnson', 3, '2019-08-12' ),( 'Star wars 5 : El imperio contrataca', 'Irvin Kershner', 2, '1980-04-04' ),( 'Star wars 4 : Una nueva esperanza', 'George Lucas', 2, '1977-05-25' );;",
-                
-                
-            };
+                "INSERT INTO PELICULAS(nombre, director, plataforma, fechasalida) VALUES  ( 'Django desencadenado', 'Quentin Tarantino', 1, '2012-01-25' ), ( 'Reservoir dogs', 'Quentin Tarantino', 3, '1992-01-23' ),( 'El lobo de Wall Street', '	Martin Scorsese', 1, '2013-02-22' ),( 'Puñales por la espalda', 'Rian Johnson', 3, '2019-08-12' ),( 'Star wars 5 : El imperio contrataca', 'Irvin Kershner', 2, '1980-04-04' ),( 'Star wars 4 : Una nueva esperanza', 'George Lucas', 2, '1977-05-25' );;",};
             for (int i = 0; i < query.length; i++) {
                 sta.executeUpdate(query[i]);
             }
@@ -296,6 +293,19 @@ public class BBDD_Manager {
         }
     }
 
+    public boolean addPlatform(String name, Double precio, String date) {
+        Statement sta;
+        try {
+            sta = connect.createStatement();
+            sta.executeUpdate("INSERT INTO PLATAFORMAS(nombre, precio, fechasalida) VALUES ('" + name + "'," + precio + " , '" + date + "');");
+            sta.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
     public void updateSerieOrMovie(String old_name, String new_name, String new_director, int new_platform) {
         try {
             Statement sta;
@@ -307,14 +317,14 @@ public class BBDD_Manager {
                 query += " nombre = '" + new_name + "'";
                 aux = true;
             }
-            if (!new_director .equals("")) {
+            if (!new_director.equals("")) {
                 if (aux) {
                     query += ",";
                 }
                 query += " director='" + new_director + "' ";
                 aux = true;
             }
-            if (new_platform!=0) {
+            if (new_platform != 0) {
                 if (aux) {
                     query += ",";
                 }
@@ -331,7 +341,7 @@ public class BBDD_Manager {
             }
         } catch (Exception e) {
         }
-        
+
         try {
             Statement sta;
             String query = "UPDATE peliculas SET";
@@ -342,14 +352,14 @@ public class BBDD_Manager {
                 query += " nombre = '" + new_name + "'";
                 aux = true;
             }
-            if (!new_director .equals("")) {
+            if (!new_director.equals("")) {
                 if (aux) {
                     query += ",";
                 }
                 query += " director='" + new_director + "' ";
                 aux = true;
             }
-            if (new_platform!=0) {
+            if (new_platform != 0) {
                 if (aux) {
                     query += ",";
                 }

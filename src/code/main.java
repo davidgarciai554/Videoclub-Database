@@ -15,9 +15,9 @@ import javax.swing.table.TableColumn;
  * @author David
  */
 public class main extends javax.swing.JFrame {
-
-    BBDD_Manager manager = new BBDD_Manager();
     
+    BBDD_Manager manager = new BBDD_Manager();
+
     /**
      * Creates new form main
      */
@@ -65,6 +65,14 @@ public class main extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         platformComboBox_update = new javax.swing.JComboBox<>();
         accept_update = new javax.swing.JButton();
+        addPlatform_Frame = new javax.swing.JFrame();
+        jLabel13 = new javax.swing.JLabel();
+        name_addPlatform = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        price_addPlatform = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        date_addPlatform = new javax.swing.JTextField();
+        accept_addPlatform = new javax.swing.JButton();
         connect_button = new javax.swing.JButton();
         disconnect_button = new javax.swing.JButton();
         restore_button = new javax.swing.JButton();
@@ -82,6 +90,7 @@ public class main extends javax.swing.JFrame {
         addSerie_button = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         addMovie_button = new javax.swing.JButton();
+        addPlatform_button = new javax.swing.JButton();
 
         addMovie_Frame.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -164,10 +173,32 @@ public class main extends javax.swing.JFrame {
         });
         update_Frame.getContentPane().add(accept_update, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 280, -1));
 
+        addPlatform_Frame.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setText("Nombre");
+        addPlatform_Frame.getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 80, 40));
+        addPlatform_Frame.getContentPane().add(name_addPlatform, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 110, -1));
+
+        jLabel14.setText("Precio");
+        addPlatform_Frame.getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 80, 40));
+        addPlatform_Frame.getContentPane().add(price_addPlatform, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 110, -1));
+
+        jLabel15.setText("Fecha Salida");
+        addPlatform_Frame.getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 80, 40));
+        addPlatform_Frame.getContentPane().add(date_addPlatform, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 110, -1));
+
+        accept_addPlatform.setText("Aceptar");
+        accept_addPlatform.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accept_addPlatformActionPerformed(evt);
+            }
+        });
+        addPlatform_Frame.getContentPane().add(accept_addPlatform, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 200, -1));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1000, 600));
-        setPreferredSize(new java.awt.Dimension(1000, 600));
-        setSize(new java.awt.Dimension(1000, 600));
+        setMinimumSize(new java.awt.Dimension(1190, 475));
+        setPreferredSize(new java.awt.Dimension(1190, 475));
+        setSize(new java.awt.Dimension(1190, 475));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -213,11 +244,11 @@ public class main extends javax.swing.JFrame {
                 allSeries_buttonActionPerformed(evt);
             }
         });
-        getContentPane().add(allSeries_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 220, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 260, 10));
-        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 260, 10));
+        getContentPane().add(allSeries_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 220, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 450, 10));
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 460, 10));
 
-        getContentPane().add(platform_comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 130, 30));
+        getContentPane().add(platform_comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 160, 30));
 
         seriesFromPlatform_button.setText("Buscar series y peliculas");
         seriesFromPlatform_button.addActionListener(new java.awt.event.ActionListener() {
@@ -225,8 +256,8 @@ public class main extends javax.swing.JFrame {
                 seriesFromPlatform_buttonActionPerformed(evt);
             }
         });
-        getContentPane().add(seriesFromPlatform_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
-        getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 260, 10));
+        getContentPane().add(seriesFromPlatform_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 210, -1));
+        getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 460, 10));
 
         mainTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -243,9 +274,9 @@ public class main extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(mainTable);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 30, 660, 520));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 660, 380));
 
-        getContentPane().add(seriesandMovies_comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 170, 30));
+        getContentPane().add(seriesandMovies_comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 170, 30));
 
         deleteSeriesMovies_button.setText("Eliminar series y peliculas");
         deleteSeriesMovies_button.addActionListener(new java.awt.event.ActionListener() {
@@ -253,7 +284,7 @@ public class main extends javax.swing.JFrame {
                 deleteSeriesMovies_buttonActionPerformed(evt);
             }
         });
-        getContentPane().add(deleteSeriesMovies_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, -1));
+        getContentPane().add(deleteSeriesMovies_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 200, -1));
 
         addSerie_button.setText("Añadir serie ");
         addSerie_button.addActionListener(new java.awt.event.ActionListener() {
@@ -261,8 +292,8 @@ public class main extends javax.swing.JFrame {
                 addSerie_buttonActionPerformed(evt);
             }
         });
-        getContentPane().add(addSerie_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 500, -1, -1));
-        getContentPane().add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 260, 10));
+        getContentPane().add(addSerie_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, -1, -1));
+        getContentPane().add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 460, 10));
 
         addMovie_button.setText("Añadir pelicula ");
         addMovie_button.addActionListener(new java.awt.event.ActionListener() {
@@ -270,7 +301,15 @@ public class main extends javax.swing.JFrame {
                 addMovie_buttonActionPerformed(evt);
             }
         });
-        getContentPane().add(addMovie_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, -1, -1));
+        getContentPane().add(addMovie_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
+
+        addPlatform_button.setText("Añadir plataforma");
+        addPlatform_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPlatform_buttonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(addPlatform_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -289,6 +328,7 @@ public class main extends javax.swing.JFrame {
 
     private void restore_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restore_buttonActionPerformed
         manager.createDataBase();
+        update();
     }//GEN-LAST:event_restore_buttonActionPerformed
 
     private void allMovies_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allMovies_buttonActionPerformed
@@ -316,7 +356,7 @@ public class main extends javax.swing.JFrame {
         model.getDataVector().removeAllElements();
         model.setColumnCount(5);
         model.setColumnIdentifiers(new Object[]{"Nombre", "Director", "Plataforma", "Fecha Salida", "Fecha Finalizacion"});
-        for (int i = 0; i < manager.getSeriesandMovies(String.valueOf(platform_comboBox.getSelectedIndex())).length ; i++) {
+        for (int i = 0; i < manager.getSeriesandMovies(String.valueOf(platform_comboBox.getSelectedIndex())).length; i++) {
             model.addRow(new Object[]{manager.getSeriesandMovies(String.valueOf(platform_comboBox.getSelectedIndex()))[i][0], manager.getSeriesandMovies(String.valueOf(platform_comboBox.getSelectedIndex()))[i][1], manager.getSeriesandMovies(String.valueOf(platform_comboBox.getSelectedIndex()))[i][2], manager.getSeriesandMovies(String.valueOf(platform_comboBox.getSelectedIndex()))[i][3], manager.getSeriesandMovies(String.valueOf(platform_comboBox.getSelectedIndex()))[i][4]});
         }
     }//GEN-LAST:event_seriesFromPlatform_buttonActionPerformed
@@ -342,8 +382,12 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void aceptar_addMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptar_addMovieActionPerformed
-        if(manager.addMovie(name_addMovie.getText(),director_addMovie.getText(),platforms_addMovie.getSelectedIndex(),date_addMovie.getText())){
+        if (manager.addMovie(name_addMovie.getText(), director_addMovie.getText(), platforms_addMovie.getSelectedIndex(), date_addMovie.getText())) {
             addMovie_Frame.setVisible(false);
+            name_addMovie.setText("");
+            director_addMovie.setText("");
+            platforms_addMovie.setSelectedIndex(0);
+            date_addMovie.setText("");
             update();
         } else {
             JOptionPane.showMessageDialog(null, "No se pudo añadir la pelicula complete todo los campos o revise la fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -351,8 +395,13 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_aceptar_addMovieActionPerformed
 
     private void aceptar_addMovie1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptar_addMovie1ActionPerformed
-        if(manager.addSeries(name_addSeries.getText(),director_addSeries.getText(),platforms_addSeries.getSelectedIndex(),date_addSeries.getText(),date2_addSeries.getText())){
+        if (manager.addSeries(name_addSeries.getText(), director_addSeries.getText(), platforms_addSeries.getSelectedIndex(), date_addSeries.getText(), date2_addSeries.getText())) {
             addSeries_Frame.setVisible(false);
+            name_addSeries.setText("");
+            director_addSeries.setText("");
+            platforms_addSeries.setSelectedIndex(0);
+            date_addSeries.setText("");
+             date2_addSeries.setText("");
             update();
         } else {
             JOptionPane.showMessageDialog(null, "No se pudo añadir la pelicula complete todo los campos o revise la fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -365,12 +414,29 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_mainTableMouseClicked
 
     private void accept_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accept_updateActionPerformed
-        manager.updateSerieOrMovie(mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString(), nuevoNombre_update.getText(),nuevoDirector_update.getText(), platformComboBox_update.getSelectedIndex());
+        manager.updateSerieOrMovie(mainTable.getValueAt(mainTable.getSelectedRow(), 0).toString(), nuevoNombre_update.getText(), nuevoDirector_update.getText(), platformComboBox_update.getSelectedIndex());
         update_Frame.setVisible(false);
         nuevoNombre_update.setText("");
         nuevoDirector_update.setText("");
         platformComboBox_update.setSelectedIndex(0);
     }//GEN-LAST:event_accept_updateActionPerformed
+
+    private void addPlatform_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlatform_buttonActionPerformed
+        addPlatform_Frame.setVisible(true);
+        addPlatform_Frame.setSize(278, 244);
+    }//GEN-LAST:event_addPlatform_buttonActionPerformed
+
+    private void accept_addPlatformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accept_addPlatformActionPerformed
+        if(manager.addPlatform(name_addPlatform.getText(), Double.parseDouble(price_addPlatform.getText()), date_addPlatform.getText())){
+            name_addPlatform.setText("");
+            price_addPlatform.setText("");
+            date_addPlatform.setText("");
+            update();
+            addPlatform_Frame.setVisible(false);
+        }else {
+            JOptionPane.showMessageDialog(null, "No se pudo añadir la pelicula complete todo los campos o revise la fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_accept_addPlatformActionPerformed
     public void components(Boolean state) {
         connect_button.setEnabled(!state);
         disconnect_button.setEnabled(state);
@@ -383,12 +449,13 @@ public class main extends javax.swing.JFrame {
         deleteSeriesMovies_button.setEnabled(state);
         addMovie_button.setEnabled(state);
         addSerie_button.setEnabled(state);
+        addPlatform_button.setEnabled(state);
         if (state) {
             platform_comboBox.addItem("");
-             seriesandMovies_comboBox.addItem("");
-             platforms_addMovie.addItem("");
-             platforms_addSeries.addItem("");
-             platformComboBox_update.addItem("");
+            seriesandMovies_comboBox.addItem("");
+            platforms_addMovie.addItem("");
+            platforms_addSeries.addItem("");
+            platformComboBox_update.addItem("");
             for (int i = 0; i < manager.getPlatforms().size(); i++) {
                 platform_comboBox.addItem(manager.getPlatforms().get(i));
                 platforms_addMovie.addItem(manager.getPlatforms().get(i));
@@ -410,9 +477,10 @@ public class main extends javax.swing.JFrame {
                 seriesandMovies_comboBox.removeItemAt(i);
             }
         }
-
+        
     }
-    public void update(){
+
+    public void update() {
         components(false);
         components(true);
     }
@@ -453,11 +521,14 @@ public class main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton accept_addPlatform;
     private javax.swing.JButton accept_update;
     private javax.swing.JButton aceptar_addMovie;
     private javax.swing.JButton aceptar_addMovie1;
     private javax.swing.JFrame addMovie_Frame;
     private javax.swing.JButton addMovie_button;
+    private javax.swing.JFrame addPlatform_Frame;
+    private javax.swing.JButton addPlatform_button;
     private javax.swing.JButton addSerie_button;
     private javax.swing.JFrame addSeries_Frame;
     private javax.swing.JButton allMovies_button;
@@ -465,6 +536,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton connect_button;
     private javax.swing.JTextField date2_addSeries;
     private javax.swing.JTextField date_addMovie;
+    private javax.swing.JTextField date_addPlatform;
     private javax.swing.JTextField date_addSeries;
     private javax.swing.JButton deleteSeriesMovies_button;
     private javax.swing.JTextField director_addMovie;
@@ -474,6 +546,9 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -489,6 +564,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable mainTable;
     private javax.swing.JTextField name_addMovie;
+    private javax.swing.JTextField name_addPlatform;
     private javax.swing.JTextField name_addSeries;
     private javax.swing.JTextField nuevoDirector_update;
     private javax.swing.JTextField nuevoNombre_update;
@@ -496,6 +572,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> platform_comboBox;
     private javax.swing.JComboBox<String> platforms_addMovie;
     private javax.swing.JComboBox<String> platforms_addSeries;
+    private javax.swing.JTextField price_addPlatform;
     private javax.swing.JButton restore_button;
     private javax.swing.JButton seriesFromPlatform_button;
     private javax.swing.JComboBox<String> seriesandMovies_comboBox;
